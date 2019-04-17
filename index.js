@@ -160,7 +160,7 @@ const V2HOT = {
             title: item.title,
             replies: item.replies,
             content: item.content,
-            avatar: item.node.avatar_normal,
+            avatar: item.member.avatar_normal,
           }))
           this.loading = false
         })
@@ -171,7 +171,7 @@ const V2HOT = {
   },
   template: `
     <div class="v2hot-container">
-      <div v-if="loading" class="lds-ripple"><div></div><div></div></div>
+      <div v-if="loading" class="lds-facebook"><div></div><div></div><div></div></div>
       <section v-for="item in data" :key="item.id" @click="onClick(item)">
         <img :src="item.avatar" alt="" />
         <div class="center">
