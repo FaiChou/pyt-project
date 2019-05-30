@@ -23,5 +23,17 @@
       <router-view></router-view>
     </div>
     <script src="index.js"></script>
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+    <script>
+      window.onload = function() {
+        Particles.init({
+          selector: '.background',
+          color: ['#F5B7B1', '#A9CCE3', '#D5F5E3'],
+          connectParticles: true,
+          maxParticles: 50,
+        })
+      }
+    </script>
   </body>
 </html>
