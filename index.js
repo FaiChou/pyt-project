@@ -126,9 +126,18 @@ const ZoomBlur = {
 }
 
 const ShineEffect = {
+  mounted() {
+    new ClipboardJS('.dy-btn');
+  },
   template: `
     <div class="shine-effect-container">
-      <button @click="download">666</button>
+      <button
+        class="dy-btn"
+        @click="download"
+        data-clipboard-text="DY_NFBZH#official#qrcode"
+      >
+        666
+      </button>
     </div>
   `,
   methods: {
