@@ -128,9 +128,14 @@ const ZoomBlur = {
 const ShineEffect = {
   template: `
     <div class="shine-effect-container">
-      <button>666</button>
+      <button @click="download">666</button>
     </div>
-  `
+  `,
+  methods: {
+    download() {
+      location.href = 'itms-services://?action=download-manifest&amp;url=https://video-dy.oss-cn-beijing.aliyuncs.com/packages/1.1.2/com.Dy.douyVideoW/manifest.plist'
+    }
+  }
 }
 
 const V2HOT = {
