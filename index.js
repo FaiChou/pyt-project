@@ -127,7 +127,7 @@ const ZoomBlur = {
 
 const ShineEffect = {
   mounted() {
-    new ClipboardJS('.dy-btn');
+    new ClipboardJS('.dy-btn')
   },
   template: `
     <div class="shine-effect-container">
@@ -155,7 +155,7 @@ const V2HOT = {
     }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     fetchData() {
@@ -198,12 +198,151 @@ const V2HOT = {
   `
 }
 
+const KEY_STR_LOWER = 'abcdefghijklmnopqrstuvwxyz'
+const KEY_STR_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const KEY_NUMERIC = '0123456789'
+const KEY_PUNCTUATION = '!@#$%^&*()_+~`|}{[]\:;?><,./-='
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+const PswdGen = {
+  data() {
+    return {
+      len: 10, // must bigger than or equal to 4
+      pswd: '',
+      isStrLower: true, // 必须有一个是true
+      isStrUpper: true, // 必须有一个是true
+      isNumeric: true, // 必须有一个是true
+      isPunctuation: true, // 必须有一个是true
+    };
+  },
+  mounted() {
+    new ClipboardJS('.copy-btn')
+    this.gen()
+  },
+  methods: {
+    gen() {
+      if (!(this.isStrLower || this.isStrUpper || this.isNumeric || this.isPunctuation)) {
+        return
+      }
+      const p = Number(this.isStrLower) + Number(this.isStrUpper) + Number(this.isNumeric) + Number(this.isPunctuation)
+      const q = parseInt(this.len / p)
+      const keys = [
+        {
+          id: 0,
+          key: KEY_STR_LOWER,
+          len: this.isStrLower ? q : 0
+        },
+        {
+          id: 1,
+          key: KEY_STR_UPPER,
+          len: this.isStrUpper ? q : 0
+        },
+        {
+          id: 2,
+          key: KEY_NUMERIC,
+          len: this.isNumeric ? q : 0
+        },
+        {
+          id: 3,
+          key: KEY_PUNCTUATION,
+          len: this.isPunctuation ? q : 0
+        }
+      ]
+      let s = ''
+      let m = 0
+      keys.forEach(item => {
+        m += item.len
+        for (let i = 0, n = item.key.length; i < item.len; ++i) {
+          s += item.key.charAt(Math.floor(Math.random() * n))
+        }
+      })
+      shuffle(keys)
+      keys.slice(0, this.len - m).forEach(item => {
+        let n = item.key.length
+        s += item.key.charAt(Math.floor(Math.random() * n))
+      })
+      this.pswd = shuffle(s.split('')).join('')
+    }
+  },
+  template: `
+    <div class="pswd-gen-container">
+      <div class="options">
+        <div class="wrapper">
+          <span class="title">长度:</span>
+          <select v-model.number="len" @change="gen">
+            <option disabled value="">请选择长度</option>
+            <option>4</option>
+            <option>6</option>
+            <option>8</option>
+            <option>10</option>
+            <option>12</option>
+            <option>14</option>
+            <option>16</option>
+            <option>18</option>
+            <option>20</option>
+          </select>
+        </div>
+        <div class="wrapper">
+          <span class="title">小写字母:</span>
+          <input type="checkbox" id="strlower" v-model="isStrLower" @change="gen">
+          <label for="strlower">( e.g. abcdefgh )</label>
+        </div>
+        <div class="wrapper">
+          <span class="title">大写字母:</span>
+          <input type="checkbox" id="strupper" v-model="isStrUpper" @change="gen">
+          <label for="strupper">( e.g. ABCDEFGH )</label>
+        </div>
+        <div class="wrapper">
+          <span class="title">数字:</span>
+          <input type="checkbox" id="numeric" v-model="isNumeric" @change="gen">
+          <label for="numeric">( e.g. 123456 )</label>
+        </div>
+        <div class="wrapper">
+          <span class="title">特殊字符:</span>
+          <input type="checkbox" id="punctuation" v-model="isPunctuation" @change="gen">
+          <label for="punctuation">( e.g. @#$% )</label>
+        </div>
+      </div>
+      <div class="ans">
+        <input v-model="pswd" />
+        <span>
+          <button class="copy-btn" :data-clipboard-text="pswd">
+            <img class="clippy" src="clippy.svg" width="13" alt="Copy to clipboard">
+          </button>
+        </span>
+      </div>
+      <a class="other-link" target="_blank" href="https://passwordsgenerator.net/">
+        passwordsgenerator.net
+      </a>
+    </div>
+  `
+}
+
 const routes = [
   { path: '/', component: Twemoji },
   { path: '/lozad', component: Lozad },
   { path: '/zoom-blur', component: ZoomBlur },
   { path: '/shine-effect', component: ShineEffect },
   { path: '/v2hot', component: V2HOT },
+  { path: '/password-generator', component: PswdGen },
 ]
 const router = new VueRouter({ routes })
 const app = new Vue({router}).$mount('#app')
