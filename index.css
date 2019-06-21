@@ -269,6 +269,7 @@ html, body {
 
 .pswd-gen-container .options {
   width: 100%;
+  max-width: 400px;
 }
 
 .pswd-gen-container .options .wrapper {
@@ -297,6 +298,7 @@ html, body {
   margin-top: 50px;
   display: table;
   width: 100%;
+  max-width: 300px;
   box-sizing: border-box;
 }
 
