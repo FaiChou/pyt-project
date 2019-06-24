@@ -327,10 +327,13 @@ const PswdGen = {
           <label for="punctuation">( e.g. @#$% )</label>
         </div>
       </div>
+      <button class="generate" @click="gen">
+        Generate
+      </button>
       <div class="ans">
         <input v-model="pswd" />
         <span>
-          <button class="copy-btn" :data-clipboard-text="pswd">
+          <button class="copy-btn" :data-clipboard-text="pswd" onclick="alert('复制成功✔️')">
             <img class="clippy" src="clippy.svg" width="13" alt="Copy to clipboard">
           </button>
         </span>

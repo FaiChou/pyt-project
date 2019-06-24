@@ -294,8 +294,22 @@ html, body {
   margin-right: 30px;
 }
 
+.pswd-gen-container button.generate {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px 0;
+  height: 36px;
+  color: #555;
+  box-sizing: border-box;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  background: -webkit-linear-gradient(top,#ffffff 0%,#eee 100%);
+  box-shadow: 0 1px 3px 0px rgba(0,0,0,0.4);
+  border: 1px #f8f8f8 solid;
+}
+
 .pswd-gen-container .ans {
-  margin-top: 50px;
+  margin-top: 20px;
   display: table;
   width: 100%;
   max-width: 300px;
