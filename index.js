@@ -274,11 +274,17 @@ const PswdGen = {
           s += item.key.charAt(Math.floor(Math.random() * n))
         }
       })
-      shuffle(keys)
-      keys.slice(0, this.len - m).forEach(item => {
-        let n = item.key.length
-        s += item.key.charAt(Math.floor(Math.random() * n))
-      })
+      const filtered = keys.filter(item => item.len > 0)
+      for (let i = 0; i < this.len - m; ++i) {
+        shuffle(filtered)
+        let n = filtered[0].key.length
+        s += filtered[0].key.charAt(Math.floor(Math.random() * n))
+      }
+      // shuffle(keys)
+      // keys.slice(0, this.len - m).forEach(item => {
+      //   let n = item.key.length
+      //   s += item.key.charAt(Math.floor(Math.random() * n))
+      // })
       this.pswd = shuffle(s.split('')).join('')
     }
   },
