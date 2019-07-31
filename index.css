@@ -142,6 +142,9 @@ html, body {
   background-color: cornflowerblue;
   margin-top: 50px;
 }
+.shine-effect-container button.loading {
+  background-color: gray;
+}
 .shine-effect-container button::after {
   content: "";
   position: absolute;
@@ -379,4 +382,22 @@ html, body {
 .pswd-gen-container .other-link {
   position: absolute;
   bottom: 50px;
+}
+
+.ninja-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ninja-container input {
+  width: 80%;
+  height: 38px;
+  border: none;
+  padding: 0 10px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 3px 10px 1px rgb(201, 198, 201);
+  -moz-box-shadow: 0px 3px 10px 1px rgb(201, 198, 201);
+  box-shadow: 0px 3px 10px 1px rgb(201, 198, 201);
 }

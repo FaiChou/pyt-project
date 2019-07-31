@@ -345,12 +345,70 @@ const PswdGen = {
   `
 }
 
+const UIDS = [
+  '220451457',
+  '821887639',
+  '819097287',
+]
+
+const Ninja = {
+  data() {
+    return {
+      code: '',
+      isLoading: false,
+    }
+  },
+  template: `
+    <div class="ninja-container">
+      <input
+        v-model="code"
+        placeholder="请输入兑换码"
+      />
+      <div class="shine-effect-container">
+        <button
+          :class="['dy-btn', {loading: isLoading}]"
+          @click="handleClick"
+        >
+          领取
+        </button>
+      </div>
+    </div>
+  `,
+  methods: {
+    handleClick() {
+      const code = this.code
+      if (!code) {
+        alert('请输入兑换码')
+        return
+      }
+      this.isLoading = true
+      const url = 'https://v2hot-server-git-master.faichou.now.sh/ninja'
+      // const url = 'http://localhost:8080/ninja'
+      const requests = UIDS.map(uid => fetch(`${url}/${uid}/${code}`))
+      Promise.all(requests).then(res => {
+        return Promise.all(res.map(r => r.json()))
+      }).then(res => {
+        // code: 424
+        // msg: "礼包已过期"
+        // console.log(res)
+        const msg = res.map(r => r.msg).join()
+        alert(msg)
+        this.isLoading = false
+      }).catch(ex => {
+        this.isLoading = false
+        alert(ex.message || '请求失败')
+      })
+    }
+  }
+}
+
 const routes = [
   { path: '/', component: Twemoji },
   { path: '/lozad', component: Lozad },
   { path: '/zoom-blur', component: ZoomBlur },
   { path: '/shine-effect', component: ShineEffect },
   { path: '/v2hot', component: V2HOT },
+  { path: '/ninja', component: Ninja },
   { path: '/password-generator', component: PswdGen },
 ]
 const router = new VueRouter({ routes })
