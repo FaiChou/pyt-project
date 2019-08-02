@@ -349,6 +349,7 @@ const UIDS = [
   '220451457',
   '821887639',
   '819097287',
+  '301653170',
 ]
 
 const Ninja = {
@@ -390,7 +391,10 @@ const Ninja = {
       }).then(res => {
         // code: 424
         // msg: "礼包已过期"
-        // console.log(res)
+        // code: 0
+        // msg: "领取成功"
+        // code: 425
+        // msg: "礼包已领取"
         const msg = res.map(r => r.msg).join()
         alert(msg)
         this.isLoading = false
