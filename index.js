@@ -63,7 +63,6 @@ const Lozad = {
 }
 
 const ZoomBlur = {
-  
   data() {
     return {
       imageObj: null,
@@ -345,12 +344,7 @@ const PswdGen = {
   `
 }
 
-const UIDS = [
-  '220451457',
-  '821887639',
-  '819097287',
-  '301653170',
-]
+const UID = '220451457'
 
 const Ninja = {
   data() {
@@ -385,18 +379,14 @@ const Ninja = {
       this.isLoading = true
       const url = 'https://v2hot-server-git-master.faichou.now.sh/ninja'
       // const url = 'http://localhost:8080/ninja'
-      const requests = UIDS.map(uid => fetch(`${url}/${uid}/${code}`))
-      Promise.all(requests).then(res => {
-        return Promise.all(res.map(r => r.json()))
-      }).then(res => {
+      fetch(`${url}/${UID}/${code}`).then(r => r.json()).then(res => {
         // code: 424
         // msg: "礼包已过期"
         // code: 0
         // msg: "领取成功"
         // code: 425
         // msg: "礼包已领取"
-        const msg = res.map(r => r.msg).join()
-        alert(msg)
+        alert(res.msg)
         this.isLoading = false
       }).catch(ex => {
         this.isLoading = false
